@@ -1,0 +1,86 @@
+{
+  "policy": {
+    "name": "cspef-sg-restrict-ssh",
+    "resource": "aws.security-group",
+    "description": "Detect SGs allowing 0.0.0.0/0 on port 22 and revoke the rule",
+    "filters": [
+      {
+        "type": "ingress",
+        "Cidr": [
+          "0.0.0.0/0"
+        ],
+        "Ports": [
+          22
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "remove-permissions"
+      },
+      {
+        "type": "tag",
+        "key": "CSPEF-Remediated",
+        "value": "true"
+      }
+    ]
+  },
+  "version": "0.9.47",
+  "execution": {
+    "id": "ef71e279-5a25-4576-8c1a-617a847c7d52",
+    "start": 1763411981.6375327,
+    "end_time": 1763411982.705775,
+    "duration": 1.0682423114776611
+  },
+  "config": {
+    "region": "ap-south-1",
+    "regions": [
+      "ap-south-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "482537999558",
+    "assume_role": null,
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".\\custodian-output",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      ".\\policies\\cspef-sg-restrict-ssh.yml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "ec2.DescribeSecurityGroups": 1
+  },
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2025-11-18T02:09:42.705169",
+      "Value": 0,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2025-11-18T02:09:42.705190",
+      "Value": 1.0592892169952393,
+      "Unit": "Seconds"
+    }
+  ]
+}

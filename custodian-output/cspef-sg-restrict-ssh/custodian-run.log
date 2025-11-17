@@ -1,0 +1,4 @@
+2025-11-17 21:55:25,550 - custodian.policy - INFO - policy:cspef-sg-restrict-ssh resource:aws.security-group region:ap-south-1 count:0 time:1.03
+2025-11-17 22:06:49,367 - custodian.policy - INFO - policy:cspef-sg-restrict-ssh resource:aws.security-group region:ap-south-1 count:0 time:0.00
+2025-11-17 22:36:01,400 - custodian.policy - INFO - policy:cspef-sg-restrict-ssh resource:aws.security-group region:ap-south-1 count:0 time:1.05
+2025-11-18 02:09:42,704 - custodian.policy - INFO - policy:cspef-sg-restrict-ssh resource:aws.security-group region:ap-south-1 count:0 time:1.06

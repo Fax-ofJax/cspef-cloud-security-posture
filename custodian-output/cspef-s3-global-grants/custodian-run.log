@@ -1,0 +1,2 @@
+2025-11-17 21:41:19,222 - custodian.policy - INFO - policy:cspef-s3-global-grants resource:aws.s3 region:ap-south-1 count:0 time:0.00
+2025-11-17 21:53:27,183 - custodian.policy - INFO - policy:cspef-s3-global-grants resource:aws.s3 region:ap-south-1 count:0 time:0.00

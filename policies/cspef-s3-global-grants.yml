@@ -1,0 +1,15 @@
+policies:
+  - name: cspef-s3-global-grants
+    resource: aws.s3
+    description: Detect buckets with ACL global grants (AllUsers / AuthenticatedUsers) and set public block + tag.
+    filters:
+      - type: global-grants
+    actions:
+      - type: set-public-block
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      - type: tag
+        key: CSPEF-Remediated
+        value: "global-grant"

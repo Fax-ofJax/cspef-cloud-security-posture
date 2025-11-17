@@ -1,0 +1,18 @@
+filebeat.inputs:
+- type: filestream
+  enabled: true
+  paths:
+    - /var/log/custodian-output/**/*ndjson_resources.json
+  exclude_files: ['.*metadata\.json$']
+  json.keys_under_root: true
+  json.add_error_key: true
+  json.process_array: false
+  fields:
+    module: custodian
+  fields_under_root: false
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+setup.kibana:
+  host: "kibana:5601"

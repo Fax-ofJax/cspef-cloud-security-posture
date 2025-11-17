@@ -1,0 +1,75 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.17
+    container_name: elk_elasticsearch
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      # Security + API keys (required for Kibana Alerting / Detection)
+      xpack.security.enabled: "true"
+      xpack.security.authc.api_key.enabled: "true"
+      # bootstrap password for the built-in "elastic" user 
+      ELASTIC_PASSWORD: "ChangeMeElasticPassw0rd!"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - elk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.17
+    container_name: elk_kibana
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      # Kibana will authenticate as the 'elastic' user below
+      ELASTICSEARCH_USERNAME: "elastic"
+      ELASTICSEARCH_PASSWORD: "ChangeMeElasticPassw0rd!"
+      XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      XPACK_SECURITY_ENCRYPTIONKEY: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      XPACK_REPORTING_ENCRYPTIONKEY: "cccccccccccccccccccccccccccccccc"
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.17
+    container_name: elk_logstash
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+    ports:
+      - "5044:5044"   # beats input
+      - "5000:5000"   # optional tcp input
+    networks:
+      - elk
+
+  filebeat:
+    build:
+      context: ./filebeat/image
+    container_name: elk_filebeat
+    user: root
+    volumes:
+      - ../custodian-output:/var/log/custodian-output:ro
+    depends_on:
+      - logstash
+    networks:
+      - elk
+
+volumes:
+  esdata:
+
+networks:
+  elk:
+    driver: bridge

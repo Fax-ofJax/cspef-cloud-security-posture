@@ -1,0 +1,19 @@
+policies:
+  - name: cspef-s3-check-publicblock
+    resource: aws.s3
+    description: Detect buckets where any PublicAccessBlock flag is NOT enabled and enable them.
+    filters:
+      - type: check-public-block
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+    actions:
+      - type: set-public-block
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      - type: tag
+        key: CSPEF-Remediated
+        value: "true"

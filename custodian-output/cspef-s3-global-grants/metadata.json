@@ -1,0 +1,82 @@
+{
+  "policy": {
+    "name": "cspef-s3-global-grants",
+    "resource": "aws.s3",
+    "description": "Detect buckets with ACL global grants (AllUsers / AuthenticatedUsers) and set public block + tag.",
+    "filters": [
+      {
+        "type": "global-grants"
+      }
+    ],
+    "actions": [
+      {
+        "type": "set-public-block",
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+      },
+      {
+        "type": "tag",
+        "key": "CSPEF-Remediated",
+        "value": "global-grant"
+      }
+    ]
+  },
+  "version": "0.9.47",
+  "execution": {
+    "id": "85263ecf-bc0f-4486-8763-7c16aea6f425",
+    "start": 1763396607.1738744,
+    "end_time": 1763396607.183745,
+    "duration": 0.009870529174804688
+  },
+  "config": {
+    "region": "ap-south-1",
+    "regions": [
+      "ap-south-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "482537999558",
+    "assume_role": null,
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".\\custodian-output",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      ".\\policies\\cspef-s3-global-grants.yml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {},
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2025-11-17T21:53:27.183422",
+      "Value": 0,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2025-11-17T21:53:27.183433",
+      "Value": 0.0019147396087646484,
+      "Unit": "Seconds"
+    }
+  ]
+}

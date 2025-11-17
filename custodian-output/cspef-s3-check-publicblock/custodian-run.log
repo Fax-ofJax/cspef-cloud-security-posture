@@ -1,0 +1,3 @@
+2025-11-17 21:39:28,377 - custodian.policy - INFO - policy:cspef-s3-check-publicblock resource:aws.s3 region:ap-south-1 count:1 time:2.79
+2025-11-17 21:39:29,302 - custodian.policy - INFO - policy:cspef-s3-check-publicblock action:setpublicblock resources:1 execution_time:0.92
+2025-11-17 21:39:30,298 - custodian.policy - INFO - policy:cspef-s3-check-publicblock action:buckettag resources:1 execution_time:1.00

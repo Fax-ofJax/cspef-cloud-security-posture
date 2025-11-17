@@ -1,0 +1,107 @@
+{
+  "policy": {
+    "name": "cspef-s3-check-publicblock",
+    "resource": "aws.s3",
+    "description": "Detect buckets where any PublicAccessBlock flag is NOT enabled and enable them.",
+    "filters": [
+      {
+        "type": "check-public-block",
+        "BlockPublicAcls": false,
+        "IgnorePublicAcls": false,
+        "BlockPublicPolicy": false,
+        "RestrictPublicBuckets": false
+      }
+    ],
+    "actions": [
+      {
+        "type": "set-public-block",
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+      },
+      {
+        "type": "tag",
+        "key": "CSPEF-Remediated",
+        "value": "true"
+      }
+    ]
+  },
+  "version": "0.9.47",
+  "execution": {
+    "id": "d4b535b8-ec89-4d61-b664-b68e72b7f263",
+    "start": 1763395765.5772188,
+    "end_time": 1763395770.299457,
+    "duration": 4.722238302230835
+  },
+  "config": {
+    "region": "ap-south-1",
+    "regions": [
+      "ap-south-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "482537999558",
+    "assume_role": null,
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".\\custodian-output",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      ".\\policies\\cspef-s3-check-publicblock.yml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "s3.ListBuckets": 1,
+    "s3.GetBucketLocation": 1,
+    "s3.GetBucketTagging": 2,
+    "s3.GetBucketPolicy": 1,
+    "s3.GetBucketAcl": 1,
+    "s3.GetBucketReplication": 1,
+    "s3.GetBucketVersioning": 1,
+    "s3.GetBucketWebsite": 1,
+    "s3.GetBucketLogging": 1,
+    "s3.GetBucketNotificationConfiguration": 1,
+    "s3.GetBucketLifecycleConfiguration": 1,
+    "s3.GetPublicAccessBlock": 1,
+    "s3.PutPublicAccessBlock": 1,
+    "s3.PutBucketTagging": 1
+  },
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2025-11-17T21:39:28.382302",
+      "Value": 1,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2025-11-17T21:39:28.382321",
+      "Value": 2.792189598083496,
+      "Unit": "Seconds"
+    },
+    {
+      "MetricName": "ActionTime",
+      "Timestamp": "2025-11-17T21:39:30.299429",
+      "Value": 1.9162304401397705,
+      "Unit": "Seconds"
+    }
+  ]
+}

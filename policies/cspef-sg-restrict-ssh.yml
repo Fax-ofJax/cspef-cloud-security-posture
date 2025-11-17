@@ -1,0 +1,14 @@
+policies:
+  - name: cspef-sg-restrict-ssh
+    resource: aws.security-group
+    description: Detect SGs allowing 0.0.0.0/0 on port 22 and revoke the rule
+    filters:
+      - type: ingress
+        Cidr:
+          - 0.0.0.0/0
+        Ports: [22]
+    actions:
+      - type: remove-permissions
+      - type: tag
+        key: CSPEF-Remediated
+        value: "true"
